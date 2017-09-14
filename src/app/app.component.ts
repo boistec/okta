@@ -1,5 +1,5 @@
 import { OktaAuthService } from './okta/okta-auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent {
   
   constructor(public oktaAuthService: OktaAuthService) {    
-    
-  }
-
-  ngOnInit() {      
+    oktaAuthService.handleAuthentication();         
   }  
 }

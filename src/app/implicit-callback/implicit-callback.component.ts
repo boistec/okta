@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { OktaAuthService } from './../okta/okta-auth.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,10 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImplicitCallbackComponent implements OnInit {
 
-  constructor(private oktaAuthService: OktaAuthService) { 
+  constructor(private route: Router,
+              private oktaAuthService: OktaAuthService) { 
 
-    oktaAuthService.handleAuthentication();
-    
+    oktaAuthService.handleAuthentication();        
   }
 
   ngOnInit() {
