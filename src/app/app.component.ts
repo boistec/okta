@@ -1,5 +1,5 @@
+import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from './okta/okta-auth.service';
-import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +7,38 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+  user;  
+  oktaSignIn;
+
+  constructor(public oktaAuthService: OktaAuthService) {
   
-  constructor(public oktaAuthService: OktaAuthService) {    
-    oktaAuthService.handleAuthentication();         
+    this.oktaSignIn = oktaAuthService.getWidget();
   }  
+
+  showLogin() {
+    this.oktaSignIn.renderEl({el: '#okta-login-container'}, (response) => {
+      if(response.status === 'SUCCESS') {
+        this.user = response.claims.email;
+      }
+    });
+  }
+
+  ngOnInit() {    
+    this.oktaSignIn.session.get((response) => {
+      if (response.status !== 'INACTIVE') {
+        this.user = response.login;
+      } else {
+        this.showLogin();
+      }
+    });
+  }
+
+  logout() {
+    this.oktaSignIn.signOut(() => {
+      this.showLogin();
+      this.user = undefined;
+    });
+  }
+
 }

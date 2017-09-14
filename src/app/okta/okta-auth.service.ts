@@ -5,23 +5,30 @@ import * as OktaAuth from '@okta/okta-auth-js/dist/okta-auth-js.min.js';
 @Injectable()
 export class OktaAuthService {
 
-  oktaAuth = new OktaAuth({
-    url: 'https://dev-982471.oktapreview.com',
-    clientId: '0oac0q873fhcsHCMz0h7',
-    issuer: 'https://dev-982471.oktapreview.com/oauth2/default',
-    redirectUri: 'http://localhost:4200/implicit/callback',
-  });
+  oktaWidget; 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {     
+    
+    this.oktaWidget = new OktaAuth({
+      baseUrl: 'https://dev-982471.oktapreview.com',
+      clientId: '0oac14i99qPj2fLHk0h7',
+      //issuer: 'https://dev-982471.oktapreview.com/oauth2/default',
+      redirectUri: 'http://localhost:4200',
+    });
+  }
+
+  getWidget() {
+    return this.oktaWidget;
+  }
 
   isAuthenticated() {
     // Checks if there is a current accessToken in the TokenManger.
-    return !!this.oktaAuth.tokenManager.get('accessToken');
+    return !!this.oktaWidget.tokenManager.get('accessToken');
   }
 
   login() {
     // Launches the login redirect.
-    this.oktaAuth.token.getWithRedirect({ 
+    this.oktaWidget.token.getWithRedirect({ 
       responseType: ['id_token', 'token'],
       scopes: ['openid', 'email', 'profile'],
       display: 'page'
@@ -29,24 +36,24 @@ export class OktaAuthService {
   }
 
   async handleAuthentication() {
-    const tokens = await this.oktaAuth.token.parseFromUrl();
+    const tokens = await this.oktaWidget.token.parseFromUrl();
     tokens.forEach(token => {
       if (token.idToken) {
-        this.oktaAuth.tokenManager.add('idToken', token);
+        this.oktaWidget.tokenManager.add('idToken', token);
       }
       if (token.accessToken) {
-        this.oktaAuth.tokenManager.add('accessToken', token);
+        this.oktaWidget.tokenManager.add('accessToken', token);
       }
     });    
   }
 
   getAccessToken() {
     // Return the token from the accessToken object.
-    return this.oktaAuth.tokenManager.get("accessToken").accessToken;
+    return this.oktaWidget.tokenManager.get("accessToken").accessToken;
   }
 
   async logout() {
-    this.oktaAuth.tokenManager.clear();
-    await this.oktaAuth.signOut();
+    this.oktaWidget.tokenManager.clear();
+    await this.oktaWidget.signOut();
   }  
 }

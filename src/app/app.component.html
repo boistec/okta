@@ -1,5 +1,10 @@
-<router-outlet></router-outlet>
-<button *ngIf="!oktaAuthService.isAuthenticated()" (click)="oktaAuthService.login()"> Login </button>
-<button *ngIf="oktaAuthService.isAuthenticated()" (click)="oktaAuthService.logout()"> Logout </button>
+<!-- <button *ngIf="!oktaAuthService.isAuthenticated()" (click)="oktaAuthService.logout()"> Login </button>
+-->
 
+<div *ngIf="!user" id="okta-login-container"></div>
+<div *ngIf="user">
+  Hello {{user}}
+  <button (click)="logout()">Logout</button>
+  <router-outlet></router-outlet>
+</div>
 

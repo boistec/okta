@@ -32,9 +32,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
       }
     ])   
   ],
-  providers: [
-    OktaAuthService
-  ],
+  providers: [OktaAuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
