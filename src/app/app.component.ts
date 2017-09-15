@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   showLogin() {
     this.oktaSignIn.renderEl({el: '#okta-login-container'}, (response) => {
       if(response.status === 'SUCCESS') {
-        this.user = response.claims.email;
+        this.user = response.claims.email;        
       }
     });
   }
@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {    
     this.oktaSignIn.session.get((response) => {
       if (response.status !== 'INACTIVE') {
-        this.user = response.login;
+        this.user = response.login;        
       } else {
         this.showLogin();
       }

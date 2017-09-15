@@ -1,4 +1,3 @@
-import { OktaAuthService } from './../okta/okta-auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public oktaAuthService: OktaAuthService) { }
+  constructor() {     
+  }
   
   ngOnInit() {
   }
