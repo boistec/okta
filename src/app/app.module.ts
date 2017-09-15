@@ -7,13 +7,17 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ImplicitCallbackComponent } from './implicit-callback/implicit-callback.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ImplicitCallbackComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
