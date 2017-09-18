@@ -67,6 +67,7 @@ export class OktaAuthService {
     const token = await this.oktaAuth.token.parseFromUrl._getLocationHash().replace("#id_token=", "");;
     if(token) {
       sessionStorage.setItem('id_token', token);
+      window.location.href= "/";
     }    
   }
 

@@ -72,11 +72,11 @@ export class AppComponent implements OnInit {
 
     this.oktaAuthService.handleAuthentication()
     .then((response) => {
-      let token = sessionStorage.getItem("id_token")
+      let token = sessionStorage.getItem("id_token");
         if(!token) {
           this.oktaAuthService.login();
-        } else {
-          this.user = "usuario forzado";
+        } else {          
+          this.user = "usuario forzado";        
         }
     });    
     
@@ -96,7 +96,9 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    this.oktaAuthService.logout();
+    this.oktaAuthService.logout().then((response) => {           
+      window.location.href= "/";
+    });
     /*
     this.oktaSignIn.signOut(() => {
       this.showLogin();
