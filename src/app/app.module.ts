@@ -1,3 +1,6 @@
+import { HttpModule } from '@angular/http';
+import { SearchService } from './services/search.service';
+import { FormsModule } from '@angular/forms';
 import { OktaAuthService } from './okta/okta-auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
@@ -9,6 +12,7 @@ import { ImplicitCallbackComponent } from './implicit-callback/implicit-callback
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -17,10 +21,12 @@ import { FooterComponent } from './footer/footer.component';
     ImplicitCallbackComponent,
     NotFoundComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -34,9 +40,12 @@ import { FooterComponent } from './footer/footer.component';
         path: '**',
         component: NotFoundComponent
       }
-    ])   
+    ]),
+    FormsModule
   ],
-  providers: [OktaAuthService],
-  bootstrap: [AppComponent]
+  providers: [
+    OktaAuthService,
+    SearchService],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
