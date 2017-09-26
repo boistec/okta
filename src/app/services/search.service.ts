@@ -1,7 +1,7 @@
-import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class SearchService {
@@ -11,6 +11,34 @@ export class SearchService {
     return this.http.get('../assets/data/people.json')
         .map((res) => res.json());
   }
+
+
+  search(term: Observable<string>) {
+    return term.debounceTime(400)
+      .distinctUntilChanged()
+      .switchMap(term => this.getAll().
+                            map(data => 
+                              data.filter(
+                                item => JSON.stringify(item).toLowerCase().includes(term)
+                              )
+                            ));
+  }
+
+  search2(q:string): Observable<any> {
+    if(!q || q === '*') {
+      q = '';
+    } else {
+      q = q.toLowerCase();
+    }
+
+    return this.getAll().
+            map(data => 
+              data.filter(
+                item => JSON.stringify(item).toLowerCase().includes(q)
+              )
+            );
+  }
+
 }
 
 export class Address {

@@ -27,6 +27,7 @@ import { SearchComponent } from './search/search.component';
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -37,15 +38,19 @@ import { SearchComponent } from './search/search.component';
         component: ImplicitCallbackComponent
       },
       {
+        path: 'search',
+        component: SearchComponent
+      },
+      {
         path: '**',
         component: NotFoundComponent
       }
-    ]),
-    FormsModule
+    ])    
   ],
   providers: [
     OktaAuthService,
-    SearchService],
+    SearchService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

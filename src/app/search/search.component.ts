@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs/Rx';
 import { Person, SearchService } from '../services/search.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,21 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  query: string;
+  query$ = new Subject<string>();
   searchResults:Array<Person>
 
-  constructor(private serachService: SearchService) { }
+  constructor(private searchService: SearchService) { }
 
   ngOnInit() {
-  }
-
-  search(): void {
-    /*
     this.searchService.getAll().subscribe(
       data => { this.searchResults = data; },
       error => console.log(error)
     );
-    */
+  }
+
+  search(): void {    
+    this.searchService.search(this.query$).subscribe(
+      data => { this.searchResults = data; },
+      error => console.log(error)
+    );    
   }
 
 }
