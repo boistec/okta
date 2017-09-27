@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+
 
 @Injectable()
 export class SearchService {
@@ -13,32 +17,17 @@ export class SearchService {
   }
 
 
-  search(term: Observable<string>) {
-    return term.debounceTime(400)
+  search(terms: Observable<string>) {
+    return terms.debounceTime(400)
       .distinctUntilChanged()
-      .switchMap(term => this.getAll().
-                            map(data => 
-                              data.filter(
-                                item => JSON.stringify(item).toLowerCase().includes(term)
-                              )
-                            ));
+      .switchMap(term => 
+        this.getAll().map(data =>
+          data.filter(item => 
+            JSON.stringify(item).toLowerCase().includes(term.toLowerCase()) 
+          )
+        )
+      );
   }
-
-  search2(q:string): Observable<any> {
-    if(!q || q === '*') {
-      q = '';
-    } else {
-      q = q.toLowerCase();
-    }
-
-    return this.getAll().
-            map(data => 
-              data.filter(
-                item => JSON.stringify(item).toLowerCase().includes(q)
-              )
-            );
-  }
-
 }
 
 export class Address {

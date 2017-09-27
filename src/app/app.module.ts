@@ -13,6 +13,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SearchComponent } from './search/search.component';
+import { EditPersonComponent } from './edit-person/edit-person.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SearchComponent } from './search/search.component';
     NotFoundComponent,
     HeaderComponent,
     FooterComponent,
-    SearchComponent
+    SearchComponent,
+    EditPersonComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,10 @@ import { SearchComponent } from './search/search.component';
       {
         path: 'search',
         component: SearchComponent
+      },
+      {
+        path: 'edit/:id',
+        component: EditPersonComponent
       },
       {
         path: '**',

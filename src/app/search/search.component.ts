@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  query$ = new Subject<string>();
+  searchTerm$ = new Subject<string>();
   searchResults:Array<Person>
 
   constructor(private searchService: SearchService) { }
@@ -19,13 +19,16 @@ export class SearchComponent implements OnInit {
       data => { this.searchResults = data; },
       error => console.log(error)
     );
+
+    this.search();
   }
 
   search(): void {    
-    this.searchService.search(this.query$).subscribe(
-      data => { this.searchResults = data; },
-      error => console.log(error)
-    );    
+    this.searchService.search(this.searchTerm$)
+      .subscribe(
+        data => { this.searchResults = data; },
+        error => console.log(error)
+      );    
   }
 
 }
