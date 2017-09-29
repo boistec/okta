@@ -1,0 +1,24 @@
+<h2>Search</h2>
+<form>
+  <!-- <input type="search" name="query" [(ngModel)]="query" (keyup)="search()"> -->
+  <input type="search" name="searchTerm" (keyup)="searchTerm$.next($event.target.value)">
+  <button type="button" (click)="search()">Search</button>
+</form>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let person of searchResults; let i=index">
+      <td>{{ i + 1 }}</td>
+      <td><a [routerLink]="['/edit', person.id]">{{ person.name }}</a></td>
+      <td>{{ person.phone }}</td>
+      <td>{{ person.address.street }}</td>
+      <td>{{ person.address.city }}, {{ person.address.state }} {{ person.address.zip }}</td>      
+    </tr>    
+  </tbody>
+</table>
