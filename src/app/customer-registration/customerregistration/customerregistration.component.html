@@ -1,0 +1,69 @@
+<form #f="ngForm" (ngSubmit)="addCustomer(f)">
+  <div ngModelGroup="customer" #customer="ngModelGroup">
+
+  </div>
+  <div class="form-group">
+    <label>First Name</label>
+    <input 
+      class="form-control"
+      required      
+      ngModel
+      name="firstName"
+      id="firstName"
+      #firstName="ngModel"
+      type="text">
+    <div
+      class="alert alert-danger"
+      *ngIf="firstName.touched && !firstName.valid">
+      First name is required.
+    </div>
+    <div
+      class="alert alert-danger"
+      *ngIf="firstName.touched && !firstName.valid">
+      The value should be between algo
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label>Last Name</label>
+    <input 
+      class="form-control"
+      required      
+      ngModel
+      name="lastName"
+      id="lastName"
+      #lastName="ngModel"
+      type="text"
+      rangeValue="[package.min, package.max]">
+    <div
+      class="alert alert-danger"
+      *ngIf="lastName.touched && !lastName.valid">
+      Last name is required.
+    </div>
+    <div
+      class="alert alert-danger"
+      *ngIf="lastName.touched && !lastName.valid">
+      The value should be between 1 and 100
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Categoría</label>
+    <select 
+      class="form-control"
+      required
+      ngModel
+      name="category" 
+      id="category"
+      #category="ngModel">
+      <option value=""></option>
+      <option *ngFor="let category of categories" [value]="category.id">
+        {{category.name }}
+      </option>
+    </select>
+    <div *ngIf="category.touched && category.invalid" class="alert alert-danger">
+      You must provide the category      
+    </div>
+  </div>
+  <button type="submit" [disabled]="!f.valid">Submit</button>    
+</form>

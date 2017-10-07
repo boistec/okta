@@ -14,6 +14,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SearchComponent } from './search/search.component';
 import { EditPersonComponent } from './edit-person/edit-person.component';
+import { CustomerregistrationComponent } from './customer-registration/customerregistration/customerregistration.component';
+import { RangeValueDirective } from './custom-validators/range-value.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { EditPersonComponent } from './edit-person/edit-person.component';
     HeaderComponent,
     FooterComponent,
     SearchComponent,
-    EditPersonComponent
+    EditPersonComponent,
+    CustomerregistrationComponent,
+    RangeValueDirective
   ],
   imports: [
     BrowserModule,
