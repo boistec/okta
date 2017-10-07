@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerregistrationComponent implements OnInit {
 
-  package = {
+  public package = {
     min:50,
     max: 100
   }
@@ -26,5 +26,10 @@ export class CustomerregistrationComponent implements OnInit {
 
   addCustomer(form) {
 
+  }
+
+  changeValue() {
+    this.package.min = 5;
+    this.package.max = 10;
   }
 }

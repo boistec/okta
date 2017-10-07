@@ -34,7 +34,8 @@
       id="lastName"
       #lastName="ngModel"
       type="text"
-      rangeValue="[package.min, package.max]">
+      rangeValue      
+      [values]="{min:package.min, max:package.max}">      
     <div
       class="alert alert-danger"
       *ngIf="lastName.touched && !lastName.valid">
@@ -43,7 +44,7 @@
     <div
       class="alert alert-danger"
       *ngIf="lastName.touched && !lastName.valid">
-      The value should be between 1 and 100
+      The value should be between {{ package.min }} and {{ package.max }}
     </div>
   </div>
 
@@ -55,7 +56,8 @@
       ngModel
       name="category" 
       id="category"
-      #category="ngModel">
+      #category="ngModel"
+      (change)="changeValue()">
       <option value=""></option>
       <option *ngFor="let category of categories" [value]="category.id">
         {{category.name }}
